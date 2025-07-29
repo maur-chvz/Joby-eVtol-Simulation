@@ -1,12 +1,12 @@
 #include "Vehicle.h"
 
-Vehicle::Vehicle(const std::string& n, double speed, double battery, double charge,
-                 double cruise_energy, int passengers, double fault)
-    : name(n), 
-      cruise_speed(speed), 
-      battery_capacity(battery), 
-      charge_time(charge), 
-      cruise_energy_use(cruise_energy), 
-      passenger_count(passengers), 
-      fault_probability(fault) {}
+Vehicle::Vehicle(const VehicleConfig& config, int vehicle_id)
+: name(config.n),
+  cruise_speed(config.speed),
+  battery_capacity(config.battery_cap),
+  charge_time(config.charge_t),
+  cruise_energy_use(config.energy_use),
+  passenger_count(config.passengers),
+  fault_probability(config.fault_prob),
+  id(vehicle_id) {}
 

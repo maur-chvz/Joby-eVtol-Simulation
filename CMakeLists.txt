@@ -4,10 +4,12 @@ project(eVTOL LANGUAGES CXX)
 set(SOURCES
     src/eVTOL.cpp
     src/Vehicle.cpp
+    src/VehicleMetric.cpp
 )
 
 set(HEADERS
     src/Vehicle.h
+    src/VehicleMetric.h
 )
 
 add_executable(eVTOL ${SOURCES} ${HEADERS})
