@@ -12,6 +12,22 @@ enum class State {
     CHARGING
 };
 
+
+/**
+ * @brief Configuration for vehicle type.
+ * 
+ * Encapsulating characteristics of a vehicle for more
+ * descriptive construction.
+ * 
+ * Vehicle name
+ * Cruise speed         (mph)
+ * Battery Capacity     (kWh)
+ * Time to Charge       (h)
+ * Energy use at Cruise (kWh/mile)
+ * Passenger Count 
+ * Probability of fault
+ * 
+ */
 struct VehicleConfig {
     const std::string n;
     const double speed = 0.0;
@@ -26,7 +42,7 @@ struct VehicleConfig {
  * @brief Vehicle Object
  * 
  * Object representing a single vehicle.
- * name : 
+ * Using VehicleConfig to setup configuration
  */
 class Vehicle {
 private:
@@ -46,6 +62,11 @@ private:
 
 public:
     Vehicle(const VehicleConfig& config, int vehicle_id);
+
+    State getState() const;
+    int getId() const;
+    const std::string& getName() const;
+    const VehicleMetrics& getMetrics() const;
 };
 
 #endif

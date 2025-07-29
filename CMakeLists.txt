@@ -5,11 +5,13 @@ set(SOURCES
     src/eVTOL.cpp
     src/Vehicle.cpp
     src/VehicleMetric.cpp
+    src/Simulator.cpp
 )
 
 set(HEADERS
     src/Vehicle.h
     src/VehicleMetric.h
+    src/Simulator.h
 )
 
 add_executable(eVTOL ${SOURCES} ${HEADERS})
