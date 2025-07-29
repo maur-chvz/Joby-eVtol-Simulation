@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string>
+#include <random>
 
 #include "VehicleMetric.h"
 
@@ -62,6 +63,12 @@ private:
 
 public:
     Vehicle(const VehicleConfig& config, int vehicle_id);
+
+    bool update(double current_time, std::mt19937& rng);
+    void startCharging(double current_time);
+    bool isChargingComplete(double current_time) const;
+    void finishCharging(double current_time);
+    void startFlying(double current_time);
 
     State getState() const;
     int getId() const;

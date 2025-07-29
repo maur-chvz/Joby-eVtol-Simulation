@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <memory>
+#include <random>
 
 #include "Vehicle.h"
 
@@ -15,6 +16,7 @@ private:
 
     std::vector<VehicleConfig> configurations_;
     std::vector<std::unique_ptr<Vehicle>> vehicles_;
+    std::mt19937 rgn_;
 
 public:
     Simulator();
