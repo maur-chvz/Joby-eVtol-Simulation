@@ -7,7 +7,7 @@ void Battery::pushVehicle(Vehicle* Vehicle) {
 
 bool Battery::update(double current_time) {
     if (current_ && current_->isChargingComplete(current_time)) {
-        current_->finishCharging(current_time);
+        current_->endCharging(current_time);
         current_ = nullptr;
         tryCharging();
         return true;

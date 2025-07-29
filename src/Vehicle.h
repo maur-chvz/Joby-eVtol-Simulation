@@ -61,19 +61,25 @@ private:
     double start_time = 0.0;
     VehicleMetrics metrics;
 
+    const double max_flight_time;
+    const double max_distance;
+
 public:
     Vehicle(const VehicleConfig& config, int vehicle_id);
 
     bool update(double current_time, std::mt19937& rng);
     void startCharging(double current_time);
+    void endCharging(double current_time);
     bool isChargingComplete(double current_time) const;
-    void finishCharging(double current_time);
     void startFlying(double current_time);
 
     State getState() const;
     int getId() const;
     const std::string& getName() const;
     const VehicleMetrics& getMetrics() const;
+private:
+    void finishFlight(double current_time);
+    bool fault(double flight_duration, std::mt19937& rng);
 };
 
 #endif
