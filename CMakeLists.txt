@@ -16,10 +16,10 @@ set(HEADERS
     src/Battery.h
 )
 
+# --- Main Executable ---
 add_executable(eVTOL ${SOURCES} ${HEADERS})
 
 target_include_directories(eVTOL PRIVATE src)
-
 target_compile_features(eVTOL PRIVATE cxx_std_20)
 
 set_target_properties(eVTOL PROPERTIES
@@ -27,3 +27,13 @@ set_target_properties(eVTOL PROPERTIES
     CXX_STANDARD_REQUIRED YES
     CXX_EXTENSIONS NO
 )
+
+# --- Unit Testing ---
+option(ENABLE_TESTS "Build unit tests" ON)
+
+if(ENABLE_TESTS)
+    enable_testing()
+
+    # Add your test directory
+    add_subdirectory(tests)
+endif()
