@@ -4,8 +4,13 @@
 #include <vector>
 #include <memory>
 #include <random>
+#include <chrono>
+#include <unordered_map>
+#include <iomanip>
+#include <algorithm>
 
 #include "Vehicle.h"
+#include "Battery.h"
 
 class Simulator {
 private:
@@ -16,13 +21,18 @@ private:
 
     std::vector<VehicleConfig> configurations_;
     std::vector<std::unique_ptr<Vehicle>> vehicles_;
-    std::mt19937 rgn_;
+    std::vector<Battery> chargers_;
+    std::mt19937 rng_;
 
 public:
     Simulator();
+    void run();
 
+private:
     void makeConfigurations();
     void makeVehicles();
+    void assignCharger(Vehicle* vehicle);
+    void printResults() const;
 };
 
 #endif
