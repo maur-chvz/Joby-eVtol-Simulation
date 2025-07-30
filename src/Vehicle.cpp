@@ -17,7 +17,7 @@ Vehicle::Vehicle(const VehicleConfig& config, int vehicle_id)
 bool Vehicle::update(double current_time, std::mt19937& rng) {
     if (state == State::FLYING) {
         double flight_duration = current_time - start_time;
-        
+
         if (fault(rng)) {
             finishFlight(current_time);
             metrics.recordFault();

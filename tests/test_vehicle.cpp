@@ -62,22 +62,23 @@ TEST_F(VehicleTest, FinishFlightUpdatesMetrics) {
 
     VehicleConfig test_config{
         .n = "Test",
-        .speed = 100,
-        .battery_cap = 100,
+        .speed = 100.0,
+        .battery_cap = 100.0,
         .charge_t = 0.5,
         .energy_use = 1.0,
         .passengers = 2,
-        .fault_prob = 1.0
+        .fault_prob = 5.0e6
     };
+
     Vehicle test_vehicle{test_config, 1};
     test_vehicle.startFlying(0.0);
     std::mt19937 fault_rng(1);
     
-    EXPECT_TRUE(test_vehicle.update(0.1, fault_rng));
+    EXPECT_TRUE(test_vehicle.update(1.0, fault_rng));
     EXPECT_EQ(test_vehicle.getState(), State::WAITING);
     const auto& metrics = test_vehicle.getMetrics();
-    EXPECT_DOUBLE_EQ(metrics.getAvgFlightTime(), 0.1);
-    EXPECT_DOUBLE_EQ(metrics.getAvgDistance(), 10.0);
-    EXPECT_DOUBLE_EQ(metrics.getTotalPassengerMiles(), 20.0);
+    EXPECT_DOUBLE_EQ(metrics.getAvgFlightTime(), 1.0);
+    EXPECT_DOUBLE_EQ(metrics.getAvgDistance(), 100.0);
+    EXPECT_DOUBLE_EQ(metrics.getTotalPassengerMiles(), 200.0);
     EXPECT_EQ(metrics.getTotalFaults(), 1);
 }
