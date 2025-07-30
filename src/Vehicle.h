@@ -86,7 +86,7 @@ public:
     Vehicle(const VehicleConfig& config, int vehicle_id);
 
     /**
-     * @brief 
+     * @brief Verifies vehicle has not faulted or run out of battery if flying
      *
      * @param [in] current_time time to flight state is simulated
      * @param [in] rng random number generator

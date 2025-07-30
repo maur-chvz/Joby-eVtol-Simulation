@@ -87,7 +87,7 @@ void Simulator::makeConfigurations() {
     });
 }
 
-void Simulator::makeVehicles() {
+void Simulator::makeVehicles() { // TO DO: make random ordere of vehicles
     std::vector<int> vehicle_counts(configurations_.size(), 0);
     std::uniform_int_distribution<int> spec_dist(0, configurations_.size() - 1);
     
