@@ -169,3 +169,15 @@ void Simulator::printResults() const {
         std::cout << "\n";
     }
 }
+
+const std::vector<VehicleConfig>& Simulator::getConfigurations() const {
+        return configurations_;
+    }
+    
+const std::vector<std::unique_ptr<Vehicle>>& Simulator::getVehicles() const {
+    return vehicles_;
+}
+
+const std::vector<Battery>& Simulator::getChargers() const {
+    return chargers_;
+}

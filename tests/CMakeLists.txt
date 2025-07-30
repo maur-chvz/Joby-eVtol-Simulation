@@ -17,6 +17,7 @@ add_executable(eVTOL_TEST
     test_vehicle.cpp
     test_vehicle_metrics.cpp
     test_battery.cpp
+    test_simulator.cpp
     ../src/Vehicle.cpp
     ../src/VehicleMetric.cpp
     ../src/Battery.cpp

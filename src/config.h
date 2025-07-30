@@ -6,6 +6,7 @@ namespace Config {
     static constexpr double DURATION = 3.0;
     static constexpr int CHARGERS = 3;
     static constexpr int VEHICLES = 20;
+    static constexpr int COMPANY_CONFIGURATIONS = 5;
 }
 
 #endif

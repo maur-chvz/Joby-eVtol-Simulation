@@ -24,6 +24,10 @@ public:
     Simulator();
     void run();
 
+    const std::vector<VehicleConfig>& getConfigurations() const;
+    const std::vector<std::unique_ptr<Vehicle>>& getVehicles() const;
+    const std::vector<Battery>& getChargers() const;
+
 private:
     void makeConfigurations();
     void makeVehicles();

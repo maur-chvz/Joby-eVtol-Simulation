@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
-#include "../src/Vehicle.h"
-#include "../src/VehicleMetric.h"
+#include "Vehicle.h"
+#include "VehicleMetric.h"
 #include <random>
 
 class VehicleTest : public ::testing::Test {
