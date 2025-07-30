@@ -15,8 +15,6 @@ public:
     bool update(double current_time);
     bool isAvailable() const;
     size_t getQueueSize() const;
-    
-private:
     void tryCharging();
 };
 

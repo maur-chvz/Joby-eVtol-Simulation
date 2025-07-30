@@ -16,6 +16,7 @@ FetchContent_MakeAvailable(googletest)
 add_executable(eVTOL_TEST
     test_vehicle.cpp
     test_vehicle_metrics.cpp
+    test_battery.cpp
     ../src/Vehicle.cpp
     ../src/VehicleMetric.cpp
     ../src/Battery.cpp
