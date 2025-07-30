@@ -1,6 +1,6 @@
 #include "Simulator.h"
 
-Simulator::Simulator() : chargers_(CHARGERS), rng_(std::random_device{}()) {
+Simulator::Simulator() : chargers_(Config::CHARGERS), rng_(std::random_device{}()) {
     makeConfigurations();
     makeVehicles();
 }
@@ -8,10 +8,18 @@ Simulator::Simulator() : chargers_(CHARGERS), rng_(std::random_device{}()) {
 void Simulator::run() {
     auto start_time = std::chrono::high_resolution_clock::now();
     
-    for (double time = 0.0; time <= DURATION; time += TIME_STEP) {
+    for (double time = 0.0; time <= Config::DURATION; time += Config::TIME_STEP) {
         for (auto& vehicle : vehicles_) {
-            if (vehicle->update(time, rng_)) {
-                assignCharger(vehicle.get());
+            State current_state = vehicle->getState();
+
+            if(current_state == State::FLYING) {
+                if (vehicle->update(time, rng_)) {
+                    assignCharger(vehicle.get());
+                }
+            }
+
+            else if(current_state == State::WAITING) {
+                continue;
             }
         }
         
@@ -83,7 +91,7 @@ void Simulator::makeVehicles() {
     std::vector<int> vehicle_counts(configurations_.size(), 0);
     std::uniform_int_distribution<int> spec_dist(0, configurations_.size() - 1);
     
-    for (int i = 0; i < VEHICLES; ++i) {
+    for (int i = 0; i < Config::VEHICLES; ++i) {
         vehicle_counts[spec_dist(rng_)]++;
     }
     
@@ -113,7 +121,6 @@ void Simulator::assignCharger(Vehicle* vehicle) {
 }
 
 void Simulator::printResults() const {
-    std::unordered_map<std::string, VehicleMetrics> aggregated_stats;
     std::unordered_map<std::string, int> vehicle_counts;
     
     for (const auto& vehicle : vehicles_) {

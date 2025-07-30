@@ -9,7 +9,7 @@ int main() {
         std::cout << "- Duration: 3 hours\n";
         std::cout << "- Total vehicles: 20\n";
         std::cout << "- Available chargers: 3\n";
-        std::cout << "- Time step: 10ms\n\n";
+        std::cout << "- Time step: 1s\n\n";
         
         Simulator sim;
         sim.run();

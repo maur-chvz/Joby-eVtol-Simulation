@@ -14,6 +14,7 @@ set(HEADERS
     src/VehicleMetric.h
     src/Simulator.h
     src/Battery.h
+    src/config.h
 )
 
 # --- Main Executable ---

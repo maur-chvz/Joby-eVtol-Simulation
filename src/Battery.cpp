@@ -27,6 +27,6 @@ void Battery::tryCharging() {
     if (current_ == nullptr && !queue_.empty()) {
         current_= queue_.front();
         queue_.pop();
-        current_->startCharging(0.0);
+        current_->startCharging();
     }
 }

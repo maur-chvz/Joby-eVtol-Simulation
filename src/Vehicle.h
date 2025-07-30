@@ -6,13 +6,16 @@
 #include <random>
 
 #include "VehicleMetric.h"
+#include "config.h"
 
+/**
+* @brief Current Vehicle State
+*/
 enum class State {
     FLYING,
     WAITING,
     CHARGING
 };
-
 
 /**
  * @brief Configuration for vehicle type.
@@ -44,6 +47,22 @@ struct VehicleConfig {
  * 
  * Object representing a single vehicle.
  * Using VehicleConfig to setup configuration
+ * 
+ * name
+ * cruise_speed      (mph)
+ * battery_capacity  (kWh)
+ * charge_time       (h)
+ * cruise_energy_use (kWh/mile)
+ * passenger_count   (unit)
+ * fault_probability (%/h)
+ * 
+ * id: unique vehicle identifier
+ * state: FLYING, WAITING, or CHARGING
+ * start_time: time current flight starts 
+ * metrics: simulated metrics captured
+ * 
+ * max_flight_time (h)
+ * max_distance (miles)
  */
 class Vehicle {
 private:
@@ -57,7 +76,6 @@ private:
 
     const int id;
     State state;
-    double current_battery = 0.0;
     double start_time = 0.0;
     VehicleMetrics metrics;
 
@@ -67,19 +85,93 @@ private:
 public:
     Vehicle(const VehicleConfig& config, int vehicle_id);
 
+    /**
+     * @brief 
+     *
+     * @param [in] current_time time to flight state is simulated
+     * @param [in] rng random number generator
+     * 
+     * @return bool true is flight finished by fault or out of battery
+     */
     bool update(double current_time, std::mt19937& rng);
-    void startCharging(double current_time);
+
+    /**
+     * @brief Sets Vehicle state to CHARGING
+     */
+    void startCharging();
+
+    /**
+     * @brief Ends Charging and start Flying
+     *
+     * @param [in] current_time time Charge finished
+     */
     void endCharging(double current_time);
+
+    /**
+     * @brief Verifies if Charging was complete
+     *
+     * @param [in] current_time time when state is checked
+     * 
+     * @return bool true if enought time to charge has elapsed
+     */
     bool isChargingComplete(double current_time) const;
+
+    /**
+     * @brief Sets Vehicle state to FLYING
+     *
+     * @param [in] current_time time flight started
+     */
     void startFlying(double current_time);
 
+    /**
+     * @brief Returns Vehicle current State
+     *
+     * @return State holding either FLYING, WAITING, or CHARGING
+     */
     State getState() const;
+
+    /**
+     * @brief Returns vehicle id
+     *
+     * @return int id
+     */
     int getId() const;
+
+    /**
+     * @brief Returns name
+     *
+     * @return string name
+     */
     const std::string& getName() const;
+
+    /**
+     * @brief Returns max_flight_time
+     *
+     * @return double maximum time Vehicle can flight before running out of battery
+     */
+    const double& getMaxFlightTime() const;
+
+    /**
+     * @brief Returns recorded metrics
+     *
+     * @return Object holding simulation metrics
+     */
     const VehicleMetrics& getMetrics() const;
 private:
+    /**
+     * @brief Flight Ends by Running out of fuel or because of Fault
+     *
+     * @param [in] current_time time at which the flight ended
+     */
     void finishFlight(double current_time);
-    bool fault(double flight_duration, std::mt19937& rng);
+
+    /**
+     * @brief Simulates a random vehicle fault based on exponential failure probability.
+     *
+     * @param rng A random number generator engine (e.g., std::mt19937).
+     * @return true if a fault occurred during the flight, false otherwise.
+     */
+    bool fault(std::mt19937& rng);
 };
 
 #endif

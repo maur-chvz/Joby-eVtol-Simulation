@@ -13,9 +13,12 @@ FetchContent_Declare(
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
-# Create test executable
 add_executable(eVTOL_TEST
     test_vehicle.cpp
+    ../src/Vehicle.cpp
+    ../src/VehicleMetric.cpp
+    ../src/Battery.cpp
+    ../src/Simulator.cpp
 )
 
 target_link_libraries(eVTOL_TEST
